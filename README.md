@@ -1,1 +1,1 @@
-# Logika-16
+# Zadania z przedmiotu Logika Matematyczna w Informatyce
