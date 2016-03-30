@@ -15,6 +15,6 @@ else:
     if (parameters[0] % 2 == 0 and parameters[1] % 2 == 0 and
     parameters[2] % 2 == 0 and parameters[3] % 2 == 0 and
     parameters[4] % 2 == 0 and parameters[5] % 2 == 0):
-        print 1
+        sys.exit(1)    # return instead of print for testing
     else:
-        print 0
+        sys.exit(0)    # as above
