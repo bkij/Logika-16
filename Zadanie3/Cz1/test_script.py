@@ -19,7 +19,7 @@ def test_main():
         print "Input: " + ' '.join(arg)
         print "Expected: " + str(expected)
         sys.stdout.write("Output: ")                # So there is no new line
-        os.system("py -2 main.py " + ' '.join(arg))
+        os.system("python main.py " + ' '.join(arg))
         print ""                                    # Print new line
     
 def test_negated():
@@ -33,7 +33,7 @@ def test_negated():
         print "Input: " + ' '.join(arg)
         print "Expected: " + str(expected)
         sys.stdout.write("Output: ")                # So there is no new line
-        os.system("py -2 main_negated.py " + ' '.join(arg))
+        os.system("python main_negated.py " + ' '.join(arg))
         print ""                                    # Print new line
     
 if len(sys.argv) < 2:
