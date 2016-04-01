@@ -9,41 +9,39 @@ import sys
 import os
 import itertools as it
 
-def my_combs(iterable, r):
-    pool = tuple(iterable)
-    n = len(pool)
-    for indices in it.product(xrange(n), repeat=r):
-        if sorted(indices) == list(indices):
-             yield tuple(pool[i] for i in indices)
+def combinations01(n):
+    if n == 1:
+        for i in ['0','1']:
+            yield i
+    else:
+        for i in ['0','1']:
+            for j in combinations01(n-1):
+                yield [i] + [elem for elem in it.islice(j, None)]
 
 def test_main():
-    for item in it.product(my_combs(xrange(2), 2), repeat=3):
-        arg = list(it.chain(*item))
+    for item in combinations01(6):
         expected = 1
-        for i in arg:
-            if i % 2 != 0:
+        for i in item:
+            if int(i) % 2 != 0:
                 expected = 0
-        arg = [str(i) for i in arg]
         call_list = ["python", "main.py"]
-        call_list.extend(arg)
+        call_list.extend(item)
         out_value = sp.call(call_list)
-        print("Input: " + ' '.join(arg))
+        print("Input: " + ' '.join(item))
         print("Expected: " + str(expected))
         print("Output: " + str(out_value))
         print("")                                    # Print new line
     
 def test_negated():
-    for item in it.product(my_combs(xrange(2), 2), repeat=3):
-        arg = list(it.chain(*item))
+    for item in combinations01(6):
         expected = 0
         for i in arg:
-            if i % 2 != 0:
+            if int(i) % 2 != 0:
                 expected = 1
-        arg = [str(i) for i in arg]
         call_list = ["python", "main_negated.py"]
         call_list.extend(arg)
         out_value = sp.call(call_list)
-        print("Input: " + ' '.join(arg))
+        print("Input: " + ' '.join(item))
         print("Expected: " + str(expected))
         print("Output: " + str(out_value))
         print("")                                    # Print new line
