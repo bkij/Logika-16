@@ -1,60 +1,78 @@
+#coding=UTF-8
 """
-    Liczebniki Churcha - Wprowadzenie:
-
+    Church numerals
+    B. Kijanka
 """
 
-def create_church_function(f, n):
-        """
-            Return function f^n, that is, f applied n times - f(f(f(...f(f(x))
-            For a function f^0, the church numeral is just an identity function
-        """
-        if n == 0:
-            return lambda x : x                             # special case - f^0
-        if n > 1:
-            return lambda x : f(create_church_function(f, n-1)(x))
-        else:
-            return f
+ZERO = lambda f : lambda x : x
+ONE = lambda f : lambda x : f(x)
+ZERO_PAIR = (ZERO, ZERO)
 
-
-class ChurchNumeral:
+def succ(church_numeral):
     """
-        Class representing a church numeral
+        Successor function for a church numeral as defined by lambda calculus:
+
+            λabc.b(abc)
+        
+        When given a church numeral λfx.f(f(f...(x))), where f is applied n times,
+        it simplifies to λbc.b(b^n(c)), which computes the function
+        taken to the power n + 1 - the successive church numeral
     """
-    def __init__(self, f, n):
-        self.number = n
-        self.base_function = f
-        self.church_function = create_church_function(f, n)
+    return lambda f : lambda x : f(church_numeral(f)(x))
 
-    def succ(self):
-        self.number += 1
-        self.church_function = lambda x : self.base_function(self.church_function(x))
+def add(church_numeral_first, church_numeral_second):
+    """
+        Function adding two church numerals as defined by lambda calculus:
+        Applying the succesor function church_numeral_first times to the second numeral
+    """
+    return lambda f : lambda x: church_numeral_first(succ)(church_numeral_second)(f)(x)
 
-    def add(self, other):
-        if self.base_function != other.base_function:
-            return False
-        else:
-            self.number += other.number
-            self.church_function = lambda x : self.church_function(other.church_function(x))
-            return True
+def mul(church_numeral_first, church_numeral_second):
+    """
+        Function multiplying two church numerals as defined by lambda calculus:
 
-    def multiply(self, other):
-        if self.base_function != other.base_function:
-            return False
-        else:
-            self.number *= other.number
-            self.church_function = create_church_function(self.church_function, other.number)
-            return True
+            λabc.a(bc)
 
-    def exp(self, other):
-        if self.base_function != other.base_function:
-            return False
-        else:
-            self.number = pow(self.number, other.number)
-            self.church_function = create_church_function(create_church_function(self.church_function, self.number), other.number)
-            return True
+        When given a church numeral λfx.f(f(f...(x))), where f is applied n times
+        and a church numeral λfx.f(f(f(f...(x)))), where f is applied m times,
+        it simplifies to λc.λfc.f^m(f^m...(c)) -> λfc.f^m(f^m...(c)), where f^m is applied n times,
+        which equals the church numeral m*n
+    """
+    return lambda f : lambda x : church_numeral_first(church_numeral_second(f))(x)
 
-    def sub(self, other):
-        pass
+def exp(church_numeral_first, church_numeral_second):
+    """
+        Function exponentiating first church numeral to the power of church_numeral_second
 
-    #TODO - zlambdowac
+        Using identity: x^y = 1*x*x*...*x (multiplying one by x y times)
+    """
+    return lambda f : lambda x : church_numeral_second(mul(ONE, church_numeral_first))(f)(x)
 
+def pair_successor(church_pair):
+    """
+        Function creating a church numeral pair (n+1, n) from a (n, n-1) pair, or in base case
+        (0,0) -> (1,0)
+
+        Used for the predecessor function and ultimately for substracting church numerals
+    """
+    return (lambda f : lambda x : f(church_pair[0](f)(x)), lambda f : lambda x : church_pair[0](f)(x))
+
+def pred(church_numeral):
+    """
+        Predecessor function for a church numeral
+
+        Works by calculating church numeral pairs of the form (n, n-1) using a successor
+        function, up to the pair (church_numeral, church_numeral - 1)
+        and returning the second element of the pair
+    """
+    return lambda f : lambda x : church_numeral(pair_successor)(ZERO_PAIR)[1](f)(x)
+
+def sub(church_numeral_first, church_numeral_second):
+    """
+        Function substracting the second church numeral from the first by
+        applying the predecessor function church_numeral_second times to church_numeral_first
+
+        If church_numeral_second > church_numeral_first it returns a 0 church numeral (as we encode
+        only natural numbers)
+    """
+    return lambda f : lambda x : church_numeral_second(pred)(church_numeral_first)(f)(x)

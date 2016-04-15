@@ -1,34 +1,77 @@
 from __future__ import print_function
 
-from church import church_numeral
-import functools as ft
-import random
-from math import sin, cos
+from church import *
 
-def linear_function_A(x):
-    return 3*x + 5
-    
-def linear_function_B(x):
-    return -34*x + 87
+THREE = succ(succ(ONE))
+FOUR = succ(THREE)
+
+def testF(x):
+    return 2*x
+
+def testG(x):
+    return x + 3
+
+def test_succ():
+    print("Testing successor function:")
+    for value in xrange(1,4):
+        print("Expected value of f(x) = 2*x applied three times for number {}: {}".format(value, value * 2**3))
+        print("Value using church numeral succ(succ(ONE)): {}".format(THREE(testF)(value)))
+        print() # new line
+        print("Expected value of f(x) = x + 3 applied three times for number {}: {}".format(value, value + 3*3))
+        print("Value using church numeral succ(succ(ONE)): {}".format(THREE(testG)(value)))
+
+
+def test_add():
+    SEVEN = add(THREE, FOUR)
+    for value in xrange(1,4):
+        print("Expected value of f(x) = 2*x applied seven times for number {}: {}".format(value, value * 2**7))
+        print("Value using church numeral add(THREE, FOUR): {}".format(SEVEN(testF)(value)))
+        print() # new line
+        print("Expected value of f(x) = x + 3 applied seven times for number {}: {}".format(value, value + 7*3))
+        print("Value using church numeral add(THREE, FOUR)h: {}".format(SEVEN(testG)(value)))
+
         
-def naive_apply_n_times(f, n, x):
-    """
-        Evalute a string - f(f(f(...f(x)), where function f is applied n times
-        Naive and a bit stupid but definitely working. For tests only
-    """
-    return eval((f.__name__ + "(")*n + str(x) + ")"*n)
+        
 
+def test_mul():
+    TWELVE = mul(THREE, FOUR)
+    for value in xrange(1, 4):
+        print("Expected value of f(x) = 2*x applied twelve times for number {}: {}".format(value, value * 2**12))
+        print("Value using church numeral mul(THREE, FOUR): {}".format(TWELVE(testF)(value)))
+        print() # new line
+        print("Expected value of f(x) = x + 3 applied twelve times for number {}: {}".format(value, value + 12*3))
+        print("Value using church numeral mul(THREE, FOUR): {}".format(TWELVE(testG)(value)))
+
+def test_exp():
+    EIGHTY_ONE = exp(THREE, FOUR)
+    for value in xrange(1, 4):
+        print("Expected value of f(x) = 2*x applied eighty one times for number {}: {}".format(value, value * 2**81))
+        print("Value using church numeral exp(THREE, FOUR): {}".format(EIGHTY_ONE(testF)(value)))
+        print() # new line
+        print("Expected value of f(x) = x + 3 applied eighty one times for number {}: {}".format(value, value + 81*3))
+        print("Value using church numeral exp(THREE, FOUR): {}".format(EIGHTY_ONE(testG)(value)))        
+
+def test_pred():
+    for value in xrange(1, 4):
+        print("Expected value of f(x) = 2*x applied two times for number {}: {}".format(value, value * 4))
+        print("Value using church numeral pred(THREE): {}".format(pred(THREE)(testF)(value)))
+        print() # new line
+        print("Expected value of f(x) = x + 3 applied three times for number {}: {}".format(value, value + 9))
+        print("Value using church numeral pred(FOUR): {}".format(pred(FOUR)(testG)(value)))
+
+def test_sub():
+    FIVE = sub(succ(succ(FOUR)), ONE)
+    for value in xrange(1, 4):
+        print("Expected value of f(x) = 2*x applied five one times for number {}: {}".format(value, value * 2 ** 5))
+        print("Value using church numeral sub(SIX, ONE): {}".format(FIVE(testF)(value)))
+        print() # new line
+        print("Expected value of f(x) = 2*x applied two times for number {}: {}".format(value, value + 2*3))
+        print("Value using church numeral sub(FIVE, THREE): {}".format(sub(FIVE, THREE)(testG)(value)))
 
 if __name__ == '__main__':
-    funcs = [sin, cos, linear_function_A, linear_function_B]
-    args = xrange(1, 10)
-    nums = [random.randrange(0, 15) for i in range(4)]
-    # Check if church numerals work
-    for f in funcs:
-        for arg in args:
-            for num in nums:
-                print("Input function: " + f.__name__ + "^" +  str(num) + "(" + str(arg) + ") == "
-                      + str(naive_apply_n_times(f, num, arg)))
-                print("Church numeral of input function and degree " + str(num) + " == " 
-                      + str(church_numeral(f, num)(arg)))
-                print("")
+    test_succ()
+    test_add()
+    test_mul()
+    test_exp()
+    test_pred()
+    test_sub()
