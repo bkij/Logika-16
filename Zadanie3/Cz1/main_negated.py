@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #
 #   main_negated.py
 #

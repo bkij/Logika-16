@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #
 #   test_script.py
 #
