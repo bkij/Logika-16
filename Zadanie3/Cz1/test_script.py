@@ -40,7 +40,7 @@ def test_negated():
             if int(i) % 2 != 0:
                 expected = 1
         call_list = ["python", "main_negated.py"]
-        call_list.extend(arg)
+        call_list.extend(item)
         out_value = sp.call(call_list)
         print("Input: " + ' '.join(item))
         print("Expected: " + str(expected))
