@@ -36,7 +36,7 @@ def test_main():
 def test_negated():
     for item in combinations01(6):
         expected = 0
-        for i in arg:
+        for i in item:
             if int(i) % 2 != 0:
                 expected = 1
         call_list = ["python", "main_negated.py"]
