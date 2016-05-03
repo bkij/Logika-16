@@ -8,7 +8,7 @@
 
 import sys
 
-parameters = [int(i) for i in sys.argv if i != 'main.py']
+parameters = [int(i) for i in sys.argv[1:]]
 
 if len(parameters) < 6:
     print "Usage: python main.py n1 n2 n3 n4 n5 n6"
