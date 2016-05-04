@@ -56,7 +56,10 @@ def print_format_info():
     print("\nzmienna1 zmienna2 wynik")
     print("\nUwaga - dla funkcji dla ktorych kolejnosc zmiennych nie jest wazna (np. AND),")
     print("nalezy mimo wszystko zawrzec obie linie.")
-    print("Niezastosowanie sie do opisanego formatu bedzie prowadzic do niepoprawnego\ndzialania gry.")
+    print("\nWartosc prawdy musi byc oznaczona znakiem 1")
+    print("Falsz znakiem 0")
+    print("Wartosc niezdefiniowana znakiem X (koniecznie wielka litera!)")
+    print("\nNiezastosowanie sie do opisanego formatu bedzie prowadzic do niepoprawnego\ndzialania gry.")
 
 def print_err_usage():
     print("Wystapil blad. Uzyj polecenia --help zeby uzyskac wiecej informacji.")
@@ -70,7 +73,7 @@ def print_help():
     print("\t--or     Okreslenie sciezki do pliku z wartosciami dla alternatywy")
     print("\t--not    Okreslenie sciezki do pliku z wartosciami dla negacji")
     print("\t--impl   Okreslenie sciezki do pliku z wartosciami dla implikacji")
-    print("\nKazda opcja poza --help musi miec jako nastepnika sciezke do odpowiedniego pliku")
+    print("\nKazda opcja poza --help i --format musi miec jako nastepnika sciezke do\nodpowiedniego pliku")
 
 def play():
     riddles = RiddleEngine()
