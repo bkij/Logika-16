@@ -7,6 +7,7 @@
   Żeby uruchomić prezentację/test: python test_church.py  
 
 * ZADANIE 3, czesc 1  
+  Proste programy logiczne w Pythonie 2.
   main.py - prosty program sprawdzajacy parzystość 6 liczb podanych jako argumenty w wierszu poleceń.  
   main_negated.py - wersja programu main.py z zanegowanym warunkiem  
   test_script.py - skrypt testowy do powyższych programów  
