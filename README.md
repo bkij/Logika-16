@@ -6,7 +6,14 @@
   Więcej informacji w pliku md w folderze Zadanie2.  
   Żeby uruchomić prezentację/test: python test_church.py  
 
-* ZADANIE 3  
+* ZADANIE 3, czesc 1  
+  main.py - prosty program sprawdzajacy parzystość 6 liczb podanych jako argumenty w wierszu poleceń.  
+  main_negated.py - wersja programu main.py z zanegowanym warunkiem  
+  test_script.py - skrypt testowy do powyższych programów  
+  Żeby uruchomić programy: python [main.py main_negated.py] n1 n2 n3 n4 n5 n6, gdzie n1..n6 to liczby podawane jako argumenty do programu  
+  Żeby uruchomić skrypt testowy: python test\_script.py [main.py main_negated.py]  
+
+* ZADANIE 3, czesc 2  
   Prosta gra logiczna w Pythonie 2.  
   Żeby uruchomić: python game.py, opcjonalnie z parametrem --help lub --format.  
   Parametr --help wyświetla więcej informacji na temat użytkowania programu, w tym inne dostępne parametry.  
