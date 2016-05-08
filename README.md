@@ -2,7 +2,8 @@
 
 
 * ZADANIE 2  
-  Implementacja liczebników Churcha w Pythonie 2. Więcej informacji w pliku md w folderze Zadanie2  
+  Implementacja liczebników Churcha w Pythonie 2.  
+  Więcej informacji w pliku md w folderze Zadanie2.  
   Żeby uruchomić prezentację/test: python test_church.py  
 
 * ZADANIE 3  
