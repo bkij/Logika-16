@@ -1,8 +1,9 @@
 #!/usr/bin/python
 from __future__ import print_function
 from os import system
-from riddles import *
 import sys, termios
+from logic import *
+from riddles import *
 
 filenames = {
             'and':'and.txt',
